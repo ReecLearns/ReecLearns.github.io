@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rishi | 15-year-old Developer</title>
+    <!-- Importing pixel and retro fonts for the 'gamified' vibe -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+    <style>
+        /* --- CUSTOMISABLE VARIABLES --- */
+        :root {
+            /* Change these colors to tweak the theme */
+            --bg-color: #0b0f0e;          /* Dark background */
+            --card-bg: #131a18;           /* Slightly lighter for cards */
+            --text-main: #d1f5e8;         /* Soft off-white text */
+            --text-muted: #728e80;        /* Muted text for subheadings */
+            --accent-neon: #39ff14;       /* The Matrix/RPG green glow */
+            --glow-shadow: 0 0 10px rgba(57, 255, 20, 0.4);
+            --pixel-border: 4px solid var(--accent-neon);
+            
+            /* Fonts */
+            --font-header: 'Press Start 2P', cursive;
+            --font-body: 'VT323', monospace;
+        }
+
+        /* --- RESET & BASIC SETUP --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            /* Scanlines effect (old CRT TV vibes) */
+            background-image: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.15) 0px,
+                rgba(0, 0, 0, 0.15) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* --- LAYOUT --- */
+        .container {
+            max-width: 800px;
+            width: 100%;
+            margin: 20px auto;
+            background-color: var(--bg-color);
+            border: var(--pixel-border);
+            box-shadow: var(--glow-shadow), inset 0 0 20px rgba(57, 255, 20, 0.1);
+            padding: 25px;
+            position: relative;
+        }
+
+        /* --- TYPOGRAPHY & ELEMENTS --- */
+        h1, h2, h3, h4 {
+            font-family: var(--font-header);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        h1 { color: var(--accent-neon); font-size: 1.5rem; text-shadow: 0 0 15px rgba(57, 255, 20, 0.5); }
+        h2 { font-size: 1.1rem; border-bottom: 2px dashed var(--accent-neon); padding-bottom: 10px; margin-top: 40px; }
+        h3 { font-size: 1.0rem; color: var(--accent-neon); }
+        
+        p, li, a {
+            font-size: 1.3rem;
+            font-family: var(--font-body);
+            color: var(--text-main);
+        }
+
+        a { text-decoration: none; color: var(--accent-neon); transition: all 0.3s; }
+        a:hover { text-shadow: 0 0 10px rgba(57, 255, 20, 0.8); }
+
+        /* --- NAVIGATION --- */
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 10px;
+            margin: 20px 0 30px 0;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #22302a;
+        }
+
+        nav a {
+            font-size: 0.9rem;
+            font-family: var(--font-header);
+            letter-spacing: 0.5px;
+        }
+
+        /* --- HEADER / PROFILE --- */
+        .profile-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .pfp-container {
+            width: 150px;
+            height: 150px;
+            border: var(--pixel-border);
+            box-shadow: var(--glow-shadow);
+            margin-bottom: 15px;
+            /* Put your image url here */
+            background-image: url('keanu-reeves-flying-neo-in-the-matrix-mosacus64xs93tzd.gif'); 
+            background-size: cover;
+            background-position: center;
+            image-rendering: pixelated; /* Keeps the pixel-art feel */
+        }
+
+        .tagline { font-size: 1.5rem; margin-top: 5px; }
+        .subtag { color: var(--text-muted); font-size: 1.2rem; margin-top: -5px; }
+        
+        /* Code block reminiscent of your Discord bio */
+        .code-snippet {
+            background: #0a1210;
+            border-left: 4px solid var(--accent-neon);
+            padding: 15px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            color: #b5ffe1;
+            overflow-x: auto;
+        }
+
+        .code-snippet span.green { color: var(--accent-neon); }
+        .code-snippet span.comment { color: #6a8a7d; font-style: italic; }
+
+        /* --- SECTIONS (CARDS) --- */
+        .card-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 2px solid #1c2c26;
+            padding: 15px;
+            transition: all 0.2s;
+        }
+
+        .card:hover {
+            border-color: var(--accent-neon);
+            box-shadow: inset 0 0 15px rgba(57, 255, 20, 0.05);
+        }
+
+        .flex-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        /* --- SKILLS / STAT BARS (Gamified) --- */
+        .skill-item {
+            flex: 1 1 200px;
+            margin-bottom: 15px;
+        }
+
+        .skill-name { display: flex; justify-content: space-between; margin-bottom: 5px; }
+        .stat-bar {
+            width: 100%;
+            height: 12px;
+            background: #11201a;
+            border: 1px solid #22302a;
+            box-shadow: inset 2px 2px 0px #000;
+            position: relative;
+        }
+
+        .stat-fill {
+            height: 100%;
+            background: var(--accent-neon);
+            box-shadow: 0 0 10px rgba(57, 255, 20, 0.4);
+            transition: width 1s ease-in-out;
+            width: 0%; /* Default */
+        }
+
+        /* --- PROJECTS & GOALS (RPG List Style) --- */
+        .rpg-list {
+            list-style: none;
+            padding: 0;
+        }
+        .rpg-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #1a2822;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .rpg-list li::before {
+            content: "▸";
+            color: var(--accent-neon);
+            font-weight: bold;
+        }
+
+        /* --- CONTACT --- */
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .contact-btn {
+            border: 2px solid var(--accent-neon);
+            padding: 10px 20px;
+            font-family: var(--font-header);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            transition: all 0.2s;
+        }
+        .contact-btn:hover {
+            background-color: var(--accent-neon);
+            color: black;
+            box-shadow: 0 0 20px rgba(57, 255, 20, 0.6);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            border-top: 2px solid #1a2822;
+            padding-top: 20px;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 600px) {
+            .container { padding: 15px; }
+            h1 { font-size: 1.0rem; }
+            nav a { font-size: 0.6rem; }
+            .contact-btn { width: 100%; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header & Navigation -->
+        <nav>
+            <a href="#about">ABOUT</a>
+            <a href="#projects">PROJECTS</a>
+            <a href="#skills">SKILLS</a>
+            <a href="#learning">LEARNING</a>
+            <a href="#goals">GOALS</a>
+            <a href="#contact">CONTACT</a>
+        </nav>
+
+        <!-- Profile -->
+        <header class="profile-header" id="about">
+            <div class="pfp-container"></div>
+            <h1>Rishi</h1>
+            <p class="tagline">15-year-old Developer, Creator, and Builder from India.</p>
+            <p class="subtag">📍 Guwahati, Assam, India</p>
+            
+            <!-- Code snippet from your Discord -->
+            <div class="code-snippet">
+                <span class="green">int</span> main(<span class="green">void</span>)<br>
+                {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="green">15</span>, Grateful, and Coding;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// Wanna be a Game Dev, AI/ML, or Systems Engineer</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="green">return</span> <span class="green">0</span>;<br>
+                }
+            </div>
+        </header>
+
+        <!-- Short Intro -->
+        <section>
+            <p>I'm a high school student from Guwahati, passionate about AI, machine learning, software engineering, and building products in public. I enjoy documenting projects, learning programming, and sharing my journey as I grow into an engineer.</p>
+        </section>
+
+        <!-- Skills (Gamified Stats) -->
+        <section id="skills">
+            <h2>⚡ Tech Stack / Stats</h2>
+            <p><i>"Say it like it's the present"</i></p>
+            <div class="flex-row">
+                <div class="skill-item">
+                    <div class="skill-name"><span>Python</span> <span>Lv. 60</span></div>
+                    <div class="stat-bar"><div class="stat-fill" style="width: 60%;"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name"><span>C</span> <span>Lv. 55</span></div>
+                    <div class="stat-bar"><div class="stat-fill" style="width: 55%;"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name"><span>Lua</span> <span>Lv. 30</span></div>
+                    <div class="stat-bar"><div class="stat-fill" style="width: 30%;"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name"><span>Git</span> <span>Lv. 40</span></div>
+                    <div class="stat-bar"><div class="stat-fill" style="width: 40%;"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name"><span>Pygame / Love2D</span> <span>Lv. 25</span></div>
+                    <div class="stat-bar"><div class="stat-fill" style="width: 25%;"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name"><span>FastAPI / Numpy</span> <span>Lv. 20</span></div>
+                    <div class="stat-bar"><div class="stat-fill" style="width: 20%;"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name"><span>Pandas / Scikit</span> <span>Lv. 15</span></div>
+                    <div class="stat-bar"><div class="stat-fill" style="width: 15%;"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name"><span>PyTorch</span> <span>Lv. 10</span></div>
+                    <div class="stat-bar"><div class="stat-fill" style="width: 10%;"></div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Current Learning -->
+        <section id="learning">
+            <h2>📚 Current Learning</h2>
+            <ul class="rpg-list">
+                <li>CS50: Introduction to Computer Science</li>
+                <li>The Odin Project (Full Stack JavaScript)</li>
+                <li>CS50 Game Development</li>
+            </ul>
+        </section>
+
+        <!-- Projects -->
+        <section id="projects">
+            <h2>🕹️ Projects</h2>
+            <div class="card-list">
+                <div class="card">
+                    <h3>🧑‍💻 Personal Portfolio</h3>
+                    <p>This very website you are looking at! Built with HTML, CSS, and Vanilla JS. A retro-gamified digital hub for my coding journey.</p>
+                </div>
+                <div class="card">
+                    <h3>🎮 Text-Based RPG (WIP)</h3>
+                    <p>A Zelda-inspired text adventure written in Python. Learning game logic, player stats, and room navigation.</p>
+                </div>
+                <div class="card">
+                    <h3>📊 Data Analysis Playground</h3>
+                    <p>Exploring NumPy and Pandas to analyze game sales data and global datasets.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Goals -->
+        <section id="goals">
+            <h2>🎯 Goals & Dreams</h2>
+            <ul class="rpg-list">
+                <li><strong>Game Dev:</strong> Build a game using Love2D or Pygame inspired by Ocarina of Time.</li>
+                <li><strong>AI / ML:</strong> Dive deeper into PyTorch and Scikit, build a simple ML model.</li>
+                <li><strong>Systems:</strong> Master C and computer architecture. Build a tiny terminal OS.</li>
+                <li><strong>Startup:</strong> Build my own startup someday and build products in public.</li>
+            </ul>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact">
+            <h2>📬 Contact / Find Me</h2>
+            <p style="text-align: center;">I love meeting other devs. Feel free to reach out!</p>
+            <div class="contact-links">
+                <a href="https://www.instagram.com/thenumborca/" target="_blank" class="contact-btn">Instagram</a>
+                <a href="https://github.com/ReecLearns" target="_blank" class="contact-btn">GitHub</a>
+                <a href="mailto:thenumborca@gmail.com" class="contact-btn">Email Me</a>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <p>© 2026 Rishi (Reec). Built after CS50 & The Odin Project.</p>
+            <p>🎮 Favorite Game: The Legend of Zelda: Ocarina of Time</p>
+        </footer>
+    </div>
+
+    <script>
+        // Simple JS logic to make it feel alive
+        // 1. Smooth scrolling for nav links is handled by CSS `scroll-behavior: smooth`
+        // 2. Simple console greeting
+        console.log("Hello, fellow dev! This site was hand-coded for Rishi.");
+        
+        // 3. Add a "Matrix" style glitch effect to the tagline? 
+        // Let's stick to what's possible after CS50: The stats below are just 
+        // CSS static widths, but we could use JS to animate them on load if they want.
+        // Keeping it plain for "my level" right now.
+    </script>
+</body>
+</html>
